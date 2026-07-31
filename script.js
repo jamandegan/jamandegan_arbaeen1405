@@ -1,197 +1,305 @@
-const map = L.map('map').setView([35.52198, 51.49887], 12);
+const map = L.map("map", {
+    zoomControl: false
+}).setView([35.52198, 51.49887], 12);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.control.zoom({
+    position: "bottomleft"
+}).addTo(map);
 
-const mokebs = [
-{
-name:'هیئت امیرالمومنین ع',
-type:'پذیرایی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'ظرفیت ۲۰۰۰ نفر'
-},
-{
-name:'گروه جهادی شهید بقرایی',
-type:'پذیرایی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'پذیرایی'
-},
-{
-name:'حوزه امام حسین ع',
-type:'خدماتی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'خدماتی'
-},
-{
-name:'گروه جهادی شهید کیوان تاجیک',
-type:'پذیرایی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'پذیرایی'
-},
-{
-name:'محبین الائمه',
-type:'پذیرایی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'ظرفیت ۵۰۰۰ نفر'
-},
-{
-name:'خیریه حضرت زینب س',
-type:'پذیرایی',
-address:'مسیر پیاده روی جاماندگان اربعین',
-services:'پذیرایی'
-},
-{
-name:'هیئت اباعبدالله الحسین',
-type:'پذیرایی',
-address:'نزدیک حرم',
-services:'ظرفیت ۲۰۰۰۰ نفر'
-}
-];
-
-let markers = [];
-
-function color(t){
-if(t==='فرهنگی') return '#2196f3';
-if(t==='پذیرایی') return '#22c55e';
-if(t==='خدماتی') return '#ff9800';
-return '#ef4444';
-}
-
-function show(data){
-
-markers.forEach(m=>map.removeLayer(m));
-markers=[];
-
-data.forEach(x=>{
-
-let icon=L.divIcon({
-html:`
-<div style="
-position:relative;
-width:28px;
-height:28px;
-background:${color(x.type)};
-border-radius:50% 50% 50% 0;
-transform:rotate(-45deg);
-border:2px solid white;
-box-shadow:0 3px 8px rgba(0,0,0,.35);
-">
-<div style="
-position:absolute;
-top:50%;
-left:50%;
-width:10px;
-height:10px;
-background:white;
-border-radius:50%;
-transform:translate(-50%,-50%) rotate(45deg);
-"></div>
-</div>
-`,
-className:'',
-iconSize:[28,28],
-iconAnchor:[14,28],
-popupAnchor:[0,-28]
-});
-
-let m=L.marker([x.lat,x.lng],{icon}).addTo(map);
-
-m.bindPopup(`
-<h3>${x.name}</h3>
-<p>📍 ${x.address}</p>
-<p>🏷️ ${x.type}</p>
-<p>🍵 ${x.services}</p>
-`);
-
-markers.push(m);
-
-});
-
-document.getElementById('mokebCount').innerText=data.length;
-}
-
-function filterMokeb(t){
-show(t==='all'?mokebs:mokebs.filter(x=>x.type===t));
-}
-
-document.getElementById('search').oninput=function(){
-show(mokebs.filter(x=>x.name.includes(this.value)));
-}
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap"
+}).addTo(map);
 
 const start = [35.44054, 51.57129];
 const destination = [35.60342, 51.42645];
 
-L.marker(start).addTo(map).bindPopup("📍 مبدا");
-L.marker(destination).addTo(map).bindPopup("🏁 مقصد");
+const mokebs = [
+{
+name:"هیئت امیرالمومنین (ع)",
+type:"پذیرایی",
+address:"مسیر پیاده روی",
+services:"ظرفیت ۲۰۰۰ نفر"
+},
+{
+name:"گروه جهادی شهید بقرایی",
+type:"پذیرایی",
+address:"مسیر پیاده روی",
+services:"پذیرایی"
+},
+{
+name:"حوزه امام حسین (ع)",
+type:"خدماتی",
+address:"مسیر پیاده روی",
+services:"خدمات"
+},
+{
+name:"گروه جهادی شهید کیوان تاجیک",
+type:"پذیرایی",
+address:"مسیر پیاده روی",
+services:"پذیرایی"
+},
+{
+name:"محبین الائمه",
+type:"پذیرایی",
+address:"مسیر پیاده روی",
+services:"۵۰۰۰ نفر"
+},
+{
+name:"خیریه حضرت زینب (س)",
+type:"پذیرایی",
+address:"مسیر پیاده روی",
+services:"پذیرایی"
+},
+{
+name:"هیئت اباعبدالله الحسین",
+type:"پذیرایی",
+address:"نزدیک حرم",
+services:"۲۰۰۰۰ نفر"
+}
+];
 
-fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${destination[1]},${destination[0]}?overview=full&geometries=geojson`)
-.then(res => res.json())
-.then(data => {
+let markers=[];
 
-const route = data.routes[0].geometry.coordinates.map(c => [
-c[1],
-c[0]
-]);
+function markerColor(type){
 
-L.polyline(route,{
-color:"#1976d2",
-weight:6
+switch(type){
+
+case "فرهنگی":
+return "#2196F3";
+
+case "پذیرایی":
+return "#22C55E";
+
+case "خدماتی":
+return "#FB8C00";
+
+default:
+return "#E53935";
+
+}
+
+}
+
+function createIcon(color){
+
+return L.divIcon({
+
+className:"",
+
+iconSize:[30,30],
+
+iconAnchor:[15,30],
+
+popupAnchor:[0,-28],
+
+html:`
+<div style="
+width:30px;
+height:30px;
+background:${color};
+border-radius:50% 50% 50% 0;
+transform:rotate(-45deg);
+border:3px solid white;
+box-shadow:0 4px 12px rgba(0,0,0,.4);
+position:relative;
+">
+<div style="
+width:11px;
+height:11px;
+background:white;
+border-radius:50%;
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%) rotate(45deg);
+">
+</div>
+</div>
+`
+
+});
+
+}
+
+function show(list){
+
+markers.forEach(m=>map.removeLayer(m));
+
+markers=[];
+
+list.forEach(item=>{
+
+const marker=L.marker([item.lat,item.lng],{
+
+icon:createIcon(markerColor(item.type))
+
 }).addTo(map);
 
-const positions = [0.08,0.20,0.34,0.48,0.62,0.78,0.92];
+marker.bindPopup(`
 
-mokebs.forEach((m,index)=>{
+<div style="min-width:210px">
 
-const point = route[Math.floor(route.length * positions[index])];
+<h3>${item.name}</h3>
 
-// جابجایی خیلی کم کنار مسیر
-const offsetLat = (index % 2 === 0 ? 1 : -1) * 0.0007;
-const offsetLng = (index % 2 === 0 ? -1 : 1) * 0.0007;
+<hr>
 
-m.lat = point[0] + offsetLat;
-m.lng = point[1] + offsetLng;
+<p>📍 ${item.address}</p>
+
+<p>🏷 ${item.type}</p>
+
+<p>🍽 ${item.services}</p>
+
+</div>
+
+`);
+
+markers.push(marker);
+
+});
+
+document.getElementById("mokebCount").innerText=list.length;
+
+}
+
+function filterMokeb(type){
+
+document.querySelectorAll(".filters button").forEach(btn=>btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+if(type==="all"){
+
+show(mokebs);
+
+return;
+
+}
+
+show(
+
+mokebs.filter(x=>x.type===type)
+
+);
+
+}
+
+document.getElementById("search").addEventListener("input",function(){
+
+const text=this.value.trim();
+
+show(
+
+mokebs.filter(x=>
+
+x.name.includes(text)
+
+)
+
+);
+
+});
+
+L.marker(start).addTo(map).bindPopup("📍 مبدا");
+
+L.marker(destination).addTo(map).bindPopup("🏁 حرم");
+
+fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${destination[1]},${destination[0]}?overview=full&geometries=geojson`)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+const route=data.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]);
+
+L.polyline(route,{
+
+color:"#1976D2",
+
+weight:7,
+
+opacity:.9
+
+}).addTo(map);
+
+const points=[0.08,0.20,0.34,0.48,0.60,0.76,0.92];
+
+mokebs.forEach((m,i)=>{
+
+const p=route[Math.floor(route.length*points[i])];
+
+m.lat=p[0]+(i%2?-.0006:.0006);
+
+m.lng=p[1]+(i%2?.0006:-.0006);
 
 });
 
 show(mokebs);
 
-map.fitBounds(route);
+map.fitBounds(route,{padding:[40,40]});
 
 });
 
-map.fitBounds([start,destination],{
-padding:[40,40]
-});
 function showMyLocation(){
 
 if(!navigator.geolocation){
-alert("موقعیت مکانی پشتیبانی نمی‌شود");
+
+alert("مرورگر پشتیبانی نمی‌کند");
+
 return;
+
 }
 
-navigator.geolocation.getCurrentPosition(function(position){
+navigator.geolocation.getCurrentPosition(pos=>{
 
-const lat = position.coords.latitude;
-const lng = position.coords.longitude;
+const lat=pos.coords.latitude;
 
-L.marker([lat,lng])
-.addTo(map)
-.bindPopup("📍 شما اینجا هستید")
+const lng=pos.coords.longitude;
+
+L.circleMarker([lat,lng],{
+
+radius:8,
+
+fillColor:"#1976D2",
+
+color:"#fff",
+
+weight:3,
+
+fillOpacity:1
+
+}).addTo(map)
+
+.bindPopup("📍 موقعیت شما")
+
 .openPopup();
 
-map.setView([lat,lng],15);
+map.flyTo([lat,lng],15);
 
-const distance = map.distance(
-[lat,lng],
-destination
-);
+const d=(map.distance([lat,lng],destination)/1000).toFixed(1);
 
-const km = (distance / 1000).toFixed(1);
+document.getElementById("distanceInfo").innerText=d+" KM";
 
-document.getElementById("distanceInfo").innerHTML =
-`🏁 فاصله تا حرم: <b>${km} کیلومتر</b>`;
+let nearest=99999;
 
-},function(){
-alert("دسترسی به موقعیت مکانی داده نشد");
+let name="-";
+
+mokebs.forEach(m=>{
+
+const dis=map.distance([lat,lng],[m.lat,m.lng]);
+
+if(dis<nearest){
+
+nearest=dis;
+
+name=m.name;
+
+}
+
+});
+
+document.getElementById("nearbyCount").innerText=name;
+
 });
 
 }

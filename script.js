@@ -1,172 +1,688 @@
-const map = L.map("map", {
-    zoomControl: false
-}).setView([35.52198, 51.49887], 12);
+const map = L.map('map').setView([35.52198,51.49887],12);
 
-L.control.zoom({
-    position: "bottomleft"
-}).addTo(map);
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap"
-}).addTo(map);
+L.tileLayer(
+'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+).addTo(map);
 
-const start = [35.44054, 51.57129];
-const destination = [35.60342, 51.42645];
 
-const mokebs = [
-{
-name:"هیئت امیرالمومنین (ع)",
-type:"پذیرایی",
-address:"مسیر پیاده روی",
-services:"ظرفیت ۲۰۰۰ نفر"
-},
-{
-name:"گروه جهادی شهید بقرایی",
-type:"پذیرایی",
-address:"مسیر پیاده روی",
-services:"پذیرایی"
-},
-{
-name:"حوزه امام حسین (ع)",
-type:"خدماتی",
-address:"مسیر پیاده روی",
-services:"خدمات"
-},
-{
-name:"گروه جهادی شهید کیوان تاجیک",
-type:"پذیرایی",
-address:"مسیر پیاده روی",
-services:"پذیرایی"
-},
-{
-name:"محبین الائمه",
-type:"پذیرایی",
-address:"مسیر پیاده روی",
-services:"۵۰۰۰ نفر"
-},
-{
-name:"خیریه حضرت زینب (س)",
-type:"پذیرایی",
-address:"مسیر پیاده روی",
-services:"پذیرایی"
-},
-{
-name:"هیئت اباعبدالله الحسین",
-type:"پذیرایی",
-address:"نزدیک حرم",
-services:"۲۰۰۰۰ نفر"
-}
+
+const start=[35.44054,51.57129];
+const destination=[35.60342,51.42645];
+
+const mokebs=[
+  {
+    "name": "قعله نو نرسید به کلانتری ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت صبحانه آب هندونه ۲۰۰۰۰۰",
+    "phone": "۰۹۱۰۰۷۴۴۸۰۳"
+  },
+  {
+    "name": "موکب امام رضا ع\nکانون خدمت رضوی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰",
+    "phone": "۰۹۱۰۶۷۴۵۱۷۷"
+  },
+  {
+    "name": "موکب امام رضا ع",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت مجید بیرامی",
+    "phone": "۰۹۱۰۶۷۴۵۱۷۷"
+  },
+  {
+    "name": "حضرت علی اصغر",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت صبحانه الویه۷۰۰عددهندوانه ۲۰۰۰هزارکیلو آب شربت به مقدار کافی ",
+    "phone": "۰۹۱۰۰۷۴۴۸۰۳"
+  },
+  {
+    "name": "جوانان حضرت علی اصغر",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۱۱۱",
+    "phone": "09029825654"
+  },
+  {
+    "name": "پایگاه شهید حسن تاجیک \nمسجد صاحب الزمان ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 2 تا 3 هزار نفر",
+    "phone": "09307036986"
+  },
+  {
+    "name": "موکب قمر بنی هاشم",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۴۰۰۰۰",
+    "phone": "۰۹۳۶۵۴۲۴۵۲۴"
+  },
+  {
+    "name": "موکب جاماندگان اربعین حسینیه سیدالشهداباقرابادخیابان مافی اباد",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰",
+    "phone": "۰۹۳۰۳۸۲۰۸۳۲"
+  },
+  {
+    "name": "فاطمه الزهرا شهید ستاری قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09353633220"
+  },
+  {
+    "name": "جوانان حضرت علی اصغر ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۱۱۱۱",
+    "phone": "09029825654"
+  },
+  {
+    "name": "هیعت جوانان حضرت علی اصغر",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت None",
+    "phone": "09029825654"
+  },
+  {
+    "name": "حوزه بسیج اصناف ، کسبه و بازاریان شهرستان قرچک ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰",
+    "phone": "۰۹۱۲۲۸۶۰۰۷۶"
+  },
+  {
+    "name": "دولتی(فرمانداری وبخشداری مرکزی ودهیاریهای تابعه قرچک)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰",
+    "phone": "۰۹۱۲۵۷۹۴۲۲۰"
+  },
+  {
+    "name": "دلباختگان حضرت فاطمه(ص)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 1000",
+    "phone": "09396936003"
+  },
+  {
+    "name": "موکب فاطمة الزهرا",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 1000",
+    "phone": "09396936003"
+  },
+  {
+    "name": "مردمی",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۵۰۰",
+    "phone": "۰۹۳۷۲۴۲۴۱۲۱۳"
+  },
+  {
+    "name": "جهادی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۵۰۰",
+    "phone": "۰۹۳۷۲۴۲۴۱۲۱۳"
+  },
+  {
+    "name": "مردمی",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۵۰۰",
+    "phone": "۰۹۳۷۲۴۲۴۱۲۱۳"
+  },
+  {
+    "name": "مردمی",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۵۰۰نفر",
+    "phone": "۰۹۳۷۲۴۲۱۲۱۳"
+  },
+  {
+    "name": "حوزه علمیه خواهران شهرستان قرچک ",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 500",
+    "phone": "09366506011"
+  },
+  {
+    "name": "گروه جهادی اباصالح",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۸۰۰۰",
+    "phone": "۰۹۱۹۸۸۱۶۷۵۰"
+  },
+  {
+    "name": "ابا عبدالله الحسین علیه السلام ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰۰",
+    "phone": "۰۹۳۶۷۳۴۹۹۱۰"
+  },
+  {
+    "name": "اداره تبلیغات اسلامی ",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 20",
+    "phone": "09214674559"
+  },
+  {
+    "name": "شهید نادر قشقای",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 5000",
+    "phone": "09123798209"
+  },
+  {
+    "name": "موکب جاماندگان اربعین",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰۰",
+    "phone": "۰۹۱۲۶۷۸۸۶۱۴"
+  },
+  {
+    "name": "شبکه بهداشت و درمان قرچک ",
+    "type": "درمانی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 20000",
+    "phone": "09126103986"
+  },
+  {
+    "name": "هیئت الشهدای قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰",
+    "phone": "۰۹۰۲۱۶۱۰۹۰۰"
+  },
+  {
+    "name": "هیئت جوانان مکتب العباس ع ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 7000",
+    "phone": "09109488031"
+  },
+  {
+    "name": "خبری",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰",
+    "phone": "۰۹۰۳۱۱۳۶۷۴۴"
+  },
+  {
+    "name": "مجموعه فرهنگی منتظران المهدی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "0901 148 9910"
+  },
+  {
+    "name": "مجمع حیدریون زیباشهر ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰۰۰",
+    "phone": "۰۹۳۳۳۸۹۰۳۶۳"
+  },
+  {
+    "name": "هیت ",
+    "type": "خدماتی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۲۰۰۰",
+    "phone": "۰۹۱۸۹۱۸۴۵۹۸ "
+  },
+  {
+    "name": "هیئت الشهدای قرچک ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰",
+    "phone": "۰۹۰۲۱۶۱۰۹۰۰"
+  },
+  {
+    "name": "موکب رقیه بنت الحسین (ع)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 600",
+    "phone": "09904766413"
+  },
+  {
+    "name": "حوزه بسیج سیدالشهداء(علیه السلام)\nگروه جهادی سردار حاج قاسم سلیمانی",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09191912589"
+  },
+  {
+    "name": "موکب مسجد امام رضا علیه‌السلام ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰",
+    "phone": "۰۹۳۹۷۸۷۹۷۴۴"
+  },
+  {
+    "name": "ستاد اقامه نماز ",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۲۰۰۰۰ تا ۳۰۰۰۰",
+    "phone": "۰۹۲۱۳۱۵۸۲۱۱"
+  },
+  {
+    "name": "شهید غلامرضا خراسانی وشهید جواد پازوکی",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰تا۶۰۰۰",
+    "phone": "۰۹۹۲۵۳۹۶۲۵۰"
+  },
+  {
+    "name": "موکب مکتب نورالقرآن",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰",
+    "phone": "۰۹۳۵۳۷۷۱۳۲۵"
+  },
+  {
+    "name": "مکتب نورالقرآن",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 3000",
+    "phone": "۰۹۳۵۳۷۷۱۳۲۵"
+  },
+  {
+    "name": "موکب محبان حضرت ابولفضل علیه السلام ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 2000",
+    "phone": "09190233520"
+  },
+  {
+    "name": "مسجد حضرت ابوالفضل(ع) و پایگاه بسیج شهدای گمنام قرچک",
+    "type": "خدماتی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 50",
+    "phone": "09124922070"
+  },
+  {
+    "name": "مسجد حضرت ابوالفضل(ع) و پایگاه بسیج شهدای گمنام قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 1000",
+    "phone": "09124922070"
+  },
+  {
+    "name": "موکب رقیه بنت الحسین (ع)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 500 نفر",
+    "phone": "09904766413"
+  },
+  {
+    "name": "هیئت منتظران المهدی(عج)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "0901 148 9910"
+  },
+  {
+    "name": "هیئت جوانان مکتب العباس ع ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 9000",
+    "phone": "09109488031"
+  },
+  {
+    "name": "هیئت منتظران المهدی(عج)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09011489910"
+  },
+  {
+    "name": "مرکز نیکو کاری طلایه داران ظهور ",
+    "type": "خدماتی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09196305177"
+  },
+  {
+    "name": "گروه جهادی شهید مصطفی صدر زاده ",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09196305177"
+  },
+  {
+    "name": "موکب هیئت چهارده معصوم(ع)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰ نفر غذا ۷۰۰۰ نفر چای وشربت",
+    "phone": "۰۹۱۲۱۳۸۵۲۱۹"
+  },
+  {
+    "name": "موکب هیئت چهارده معصوم (ع)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۵۰۰۰ نفر غذا ۷۰۰۰ نفر چای وشربت",
+    "phone": "09121385219"
+  },
+  {
+    "name": "موکب خدمت گذاران مولا علی (ع)",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 4000",
+    "phone": " 09103153527"
+  },
+  {
+    "name": "یگان امنیتی حضرت ثامن الحجج",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 8000",
+    "phone": "09929194214"
+  },
+  {
+    "name": "هیئت امیر المومنین ع",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 2000",
+    "phone": "09199521356"
+  },
+  {
+    "name": "گروه جهادی شهید بقرایی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت تا دویست ملیون تومان ",
+    "phone": "۰۹۳۹۳۹۰۹۴۱۰"
+  },
+  {
+    "name": "حوزه امام حسین ع ",
+    "type": "خدماتی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰",
+    "phone": "۰۹۱۹۱۳۷۵۳۲۶"
+  },
+  {
+    "name": "گروه جهادی شهید بقرایی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت از۰  تا ۲۰۰۰۰۰۰۰۰",
+    "phone": "۰۹۳۹۳۹۰۹۴۱۰"
+  },
+  {
+    "name": "گروه جهادی شهید کیوان تاجیک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت حداقل ۲/۰۰۰/۰۰۰ نفر",
+    "phone": "۰۹۱۲۷۹۲۰۹۸۹"
+  },
+  {
+    "name": "محبین الائمه",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 5000",
+    "phone": "09122128532"
+  },
+  {
+    "name": "خیریه حضرت زینب س",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 2000",
+    "phone": "09122759359"
+  },
+  {
+    "name": "هیئت اباعبدالله الحسین",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۲۰۰۰۰ نفر",
+    "phone": "۰۹۱۲۱۴۹۱۹۷۷"
+  },
+  {
+    "name": "هیئت اباعبدالله... الحسین",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۲۰۰۰۰ نفر",
+    "phone": "۰۹۱۲۱۴۹۱۹۷۷"
+  },
+  {
+    "name": "موکب قمربنی هاشم",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 2000",
+    "phone": "09358620959"
+  },
+  {
+    "name": "موکب بین الحرمین ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000 لیوان شربت و آب ",
+    "phone": "09362656116"
+  },
+  {
+    "name": "شهداء عشائر شهرستان",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09123943372"
+  },
+  {
+    "name": "هیئت قمر بنی هاشم قرچک زیباشهر ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت None",
+    "phone": "۰۹۱۲۴۵۹۷۵۶"
+  },
+  {
+    "name": "هیئت قمربنی هاشم(ع) زیباشهر شهرستان قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰",
+    "phone": "۰۹۱۲۴۵۹۰۷۵۶"
+  },
+  {
+    "name": "موكب خانم ام البنين سلام الله عليها",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت خدمات پذيزايي و فرهنگي \n",
+    "phone": "09351194204"
+  },
+  {
+    "name": "مرکزنیکوکاری شهیدمیثم نجفی وگروه جهادی شهیدمیثم نجفی ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت 10000",
+    "phone": "09120635528"
+  },
+  {
+    "name": "موکب حسینیه بیت الزهراءسلام الله علیه وخامین افتخاری حضرت رضاعلیه السلام شهرستان قرچک ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰",
+    "phone": "۰۹۱۹۱۹۲۶۰۸۴"
+  },
+  {
+    "name": "موکب حسینیه بیت الزهراءسلام الله علیها امام رضائیهای شهرستان قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰۰",
+    "phone": "۰۹۱۹۱۹۲۶۰۸۴"
+  },
+  {
+    "name": "هیئت قمربنی هاشم ع زیباشهر شهرستان قرچک",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰ ",
+    "phone": "۰۹۱۲۴۵۹۰۷۵۶"
+  },
+  {
+    "name": "موکب هیئت مجمع حیدریون زیباشهر ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۲۰۰۰",
+    "phone": "۰۹۳۳۳۸۹۰۳۶۳"
+  },
+  {
+    "name": "موکب قمر بنی هاشم ",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۳۰۰۰ هزار نفر",
+    "phone": "۰۹۳۵۸۶۲۰۹۵۸"
+  },
+  {
+    "name": "موکب قمر بنی هاشم",
+    "type": "پذیرایی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰ ",
+    "phone": "۰۹۳۵۸۶۲۰۹۵۹"
+  },
+  {
+    "name": "رسانه ۱۵ خرداد رسانه اربعین",
+    "type": "فرهنگی",
+    "address": "مسیر پیاده روی جاماندگان اربعین",
+    "services": "ظرفیت ۱۰۰۰",
+    "phone": "09120202712"
+  }
 ];
+
 
 let markers=[];
 
-function markerColor(type){
 
-switch(type){
 
-case "فرهنگی":
-return "#2196F3";
+function color(type){
 
-case "پذیرایی":
-return "#22C55E";
+if(type==="فرهنگی")
+return "#2196f3";
 
-case "خدماتی":
-return "#FB8C00";
+if(type==="پذیرایی")
+return "#22c55e";
 
-default:
-return "#E53935";
+if(type==="خدماتی")
+return "#ff9800";
 
-}
+return "#ef4444";
 
 }
 
-function createIcon(color){
 
-return L.divIcon({
 
-className:"",
 
-iconSize:[30,30],
 
-iconAnchor:[15,30],
+function show(data){
 
-popupAnchor:[0,-28],
 
-html:`
-<div style="
-width:30px;
-height:30px;
-background:${color};
-border-radius:50% 50% 50% 0;
-transform:rotate(-45deg);
-border:3px solid white;
-box-shadow:0 4px 12px rgba(0,0,0,.4);
-position:relative;
-">
-<div style="
-width:11px;
-height:11px;
-background:white;
-border-radius:50%;
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%) rotate(45deg);
-">
-</div>
-</div>
-`
-
+markers.forEach(m=>{
+map.removeLayer(m);
 });
 
-}
-
-function show(list){
-
-markers.forEach(m=>map.removeLayer(m));
 
 markers=[];
 
-list.forEach(item=>{
 
-const marker=L.marker([item.lat,item.lng],{
+data.forEach(x=>{
 
-icon:createIcon(markerColor(item.type))
 
-}).addTo(map);
+if(!x.lat || !x.lng)
+return;
+
+
+
+let icon=L.divIcon({
+
+className:"",
+
+html:`
+
+<div style="
+width:28px;
+height:28px;
+background:${color(x.type)};
+border-radius:50% 50% 50% 0;
+transform:rotate(-45deg);
+border:2px solid white;
+">
+
+<div style="
+width:10px;
+height:10px;
+background:white;
+border-radius:50%;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) rotate(45deg);
+"></div>
+
+</div>
+
+`,
+
+iconSize:[28,28],
+iconAnchor:[14,28]
+
+});
+
+
+
+let marker=L.marker(
+[x.lat,x.lng],
+{
+icon:icon
+}
+)
+.addTo(map);
+
+
 
 marker.bindPopup(`
 
-<div style="min-width:210px">
+<div class="popupCard">
 
-<h3>${item.name}</h3>
+<h3 class="popupTitle">
+${x.name}
+</h3>
 
-<hr>
+<p>
+📍 ${x.address}
+</p>
 
-<p>📍 ${item.address}</p>
+<p>
+🏷 ${x.type}
+</p>
 
-<p>🏷 ${item.type}</p>
+<p>
+🍵 ${x.services}
+</p>
 
-<p>🍽 ${item.services}</p>
+<a class="popupBtn"
+target="_blank"
+href="https://www.google.com/maps/search/?api=1&query=${x.lat},${x.lng}">
+🧭 مسیریابی
+</a>
 
 </div>
 
 `);
 
+
 markers.push(marker);
+
 
 });
 
-document.getElementById("mokebCount").innerText=list.length;
+
+
+document.getElementById("mokebCount").innerText=data.length;
 
 }
 
+
+
+
+
 function filterMokeb(type){
 
-document.querySelectorAll(".filters button").forEach(btn=>btn.classList.remove("active"));
-
-event.target.classList.add("active");
 
 if(type==="all"){
 
@@ -176,130 +692,175 @@ return;
 
 }
 
+
 show(
-
-mokebs.filter(x=>x.type===type)
-
+mokebs.filter(
+x=>x.type===type
+)
 );
+
 
 }
 
-document.getElementById("search").addEventListener("input",function(){
 
-const text=this.value.trim();
+
+
+document
+.getElementById("search")
+.addEventListener("input",function(){
+
 
 show(
 
-mokebs.filter(x=>
-
-x.name.includes(text)
-
+mokebs.filter(
+x=>x.name.includes(this.value)
 )
 
 );
 
+
 });
 
-L.marker(start).addTo(map).bindPopup("📍 مبدا");
 
-L.marker(destination).addTo(map).bindPopup("🏁 حرم");
 
-fetch(`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${destination[1]},${destination[0]}?overview=full&geometries=geojson`)
 
-.then(r=>r.json())
+
+L.marker(start)
+.addTo(map)
+.bindPopup("📍 مبدا");
+
+
+
+L.marker(destination)
+.addTo(map)
+.bindPopup("🏁 مقصد");
+
+
+
+
+
+fetch(
+`https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${destination[1]},${destination[0]}?overview=full&geometries=geojson`
+)
+
+
+.then(res=>res.json())
+
 
 .then(data=>{
 
-const route=data.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]);
+
+let route=
+data.routes[0]
+.geometry
+.coordinates
+.map(c=>[
+c[1],
+c[0]
+]);
+
+
 
 L.polyline(route,{
 
-color:"#1976D2",
+color:"#FFD54F",
+weight:6
 
-weight:7,
+})
+.addTo(map);
 
-opacity:.9
 
-}).addTo(map);
-
-const points=[0.08,0.20,0.34,0.48,0.60,0.76,0.92];
 
 mokebs.forEach((m,i)=>{
 
-const p=route[Math.floor(route.length*points[i])];
+const index=Math.floor(
+(i*(route.length-1))/(mokebs.length-1)
+);
 
-m.lat=p[0]+(i%2?-.0006:.0006);
+const point=route[index];
 
-m.lng=p[1]+(i%2?.0006:-.0006);
+m.lat=point[0];
+m.lng=point[1];
 
 });
 
 show(mokebs);
 
-map.fitBounds(route,{padding:[40,40]});
+map.fitBounds(route);;
+
+
+
+show(mokebs);
+
+
+
+map.fitBounds(route);
+
 
 });
 
+
+
+
+
 function showMyLocation(){
+
 
 if(!navigator.geolocation){
 
-alert("مرورگر پشتیبانی نمی‌کند");
-
+alert("موقعیت پشتیبانی نمی‌شود");
 return;
 
 }
 
+
+
 navigator.geolocation.getCurrentPosition(pos=>{
 
-const lat=pos.coords.latitude;
 
-const lng=pos.coords.longitude;
+let lat=pos.coords.latitude;
+let lng=pos.coords.longitude;
 
-L.circleMarker([lat,lng],{
 
-radius:8,
 
-fillColor:"#1976D2",
-
-color:"#fff",
-
-weight:3,
-
-fillOpacity:1
-
-}).addTo(map)
-
+L.marker([lat,lng])
+.addTo(map)
 .bindPopup("📍 موقعیت شما")
-
 .openPopup();
 
-map.flyTo([lat,lng],15);
 
-const d=(map.distance([lat,lng],destination)/1000).toFixed(1);
 
-document.getElementById("distanceInfo").innerText=d+" KM";
+map.setView(
+[lat,lng],
+15
+);
 
-let nearest=99999;
 
-let name="-";
 
-mokebs.forEach(m=>{
+let distance=
+map.distance(
+[lat,lng],
+destination
+)/1000;
 
-const dis=map.distance([lat,lng],[m.lat,m.lng]);
 
-if(dis<nearest){
 
-nearest=dis;
+document.getElementById("distanceInfo").innerHTML=
 
-name=m.name;
+`🏁 فاصله تا حرم: ${distance.toFixed(1)} کیلومتر`;
 
-}
+
+
+},()=>{
+
+alert("دسترسی موقعیت فعال نیست");
 
 });
 
-document.getElementById("nearbyCount").innerText=name;
-
-});
 
 }
+
+
+
+
+show(mokebs);

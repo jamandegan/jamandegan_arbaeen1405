@@ -524,33 +524,23 @@ weight:6
 .addTo(map);
 
 
-‌ mokebs.forEach((m, i) => {
+mokebs.forEach((m, i) => {
 
-  // مختصات ثابت موکب شهرداری
   if (m.name === "موکب شهرداری") {
     m.lat = 35.49687;
     m.lng = 51.52613;
     return;
   }
 
-  // مختصات ثابت فرمانداری، بخشداری و دهیاری‌ها
   if (m.name === "فرمانداری، بخشداری و دهیاری‌ها") {
     m.lat = 35.46200;
     m.lng = 51.55749;
     return;
   }
 
-  // بقیه موکب‌ها روی مسیر قرار می‌گیرند
   const index = Math.floor(
     (i * (route.length - 1)) / (mokebs.length - 1)
   );
-
-  const point = route[index];
-
-  m.lat = point[0];
-  m.lng = point[1];
-
-});
 
   const point = route[index];
 

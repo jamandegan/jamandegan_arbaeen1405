@@ -196,6 +196,15 @@ const mokebs=[
     "services": "ظرفیت 20000",
     "phone": "09126103986"
   },
+{
+  "name": "موکب شهرداری",
+  "type": "پذیرایی",
+  "address": "بین طالب‌آباد و قمی‌آباد",
+  "services": "ظرفیت نامشخص",
+  "phone": "",
+  "lat": 35.49687,
+  "lng": 51.52613
+},
   {
     "name": "هیئت الشهدای قرچک",
     "type": "پذیرایی",
@@ -603,8 +612,7 @@ map.setView(
 
 
 
-const destination = [35.60342, 51.42645];
-
+const destination = [35.58518, 51.43778];
 
 document.getElementById("distanceInfo").innerHTML=
 
